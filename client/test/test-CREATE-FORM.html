@@ -1,0 +1,45 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>test</title>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+ <script>
+
+	/*$.ajax({
+		type: 'POST',
+		url: 'http://equipaments-cscanigo.rhcloud.com/services/equipaments/?callback=?',
+		crossDomain: true,
+		data: '{"id":99999,"nom":"PROVA POST","adreca":"PROVA POST","municipi":"BCN","codiPostal":"00000","comarca":"Barcelones","telefon":"93 555 55 55","longitud":0,"latitud":0,"categories":"TEST","location":"<Point><coordinates>0.0,0.0,0.0</coordinates></Point>"}',
+		dataType: 'json',
+		success: function(responseData, textStatus, jqXHR) {
+		    alert('POST success');
+		},
+		error: function (responseData, textStatus, errorThrown) {
+		    alert('POST failed.');
+		}
+	});*/
+
+ </script>
+</head>
+<body>
+
+<form action="http://equipaments-cscanigo.rhcloud.com/services/equipaments/" method="POST"> <!-- enctype="multipart/form-data"-->
+	<label for="id">id: </label> <input type="text" name="id" id="id" /> <br />
+	<label for="nom">nom: </label> <input type="text" id="nom" name="nom" /> <br />
+	<label for="adreca">adreca: </label> <input type="text" id="adreca" name="adreca" /> <br />
+	<label for="municipi">municipi: </label> <input type="text" id="municipi" name="municipi" /> <br />
+	<label for="codiPostal">codiPostal: </label> <input type="text" id="codiPostal" name="codiPostal" /> <br />
+	<label for="comarca">comarca: </label> <input type="text" id="comarca" name="comarca" /> <br />
+	<label for="telefon">telefon: </label> <input type="text" id="telefon" name="telefon" /> <br />
+	<label for="longitud">longitud: </label> <input type="text" id="longitud" name="longitud" /> <br />
+	<label for="latitud">latitud: </label> <input type="text" id="latitud" name="latitud" /> <br />
+	<label for="categories">categories: </label> <input type="text" id="categories" name="categories" /> <br />
+	<label for="location">location: </label> <input type="text" id="location" name="location" /> <br />
+	<input type="submit" value="Envia" />
+</form>
+
+</body>
+</html>

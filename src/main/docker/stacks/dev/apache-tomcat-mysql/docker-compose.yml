@@ -1,0 +1,31 @@
+db:
+  image: mysql:5.6
+  ports:
+    - 3306:3306
+  environment:
+    MYSQL_DATABASE: equipaments
+    MYSQL_USER: canigo
+    MYSQL_PASSWORD: canigo2015
+    MYSQL_ROOT_PASSWORD: mysql
+  volumes:
+    - /home/canigo/Documents/workspace-sts-3.7.1.RELEASE/equipaments/bbdd/data:/tmp/data
+    - /home/canigo/Documents/workspace-sts-3.7.1.RELEASE/equipaments/bbdd/scripts:/docker-entrypoint-initdb.d
+app:
+  image: cscanigo/tomcat7-java7
+  environment:
+    entorn: dev
+  links:
+    - db:mysql  
+  volumes:
+    - /home/canigo/Documents/workspace-sts-3.7.1.RELEASE/equipaments/target/demo-equipaments:/var/lib/tomcat7/webapps/demo-equipaments
+  ports:
+    - 8080:8080
+    - 8000:8000
+web:
+  image: cscanigo/httpd:2.4
+  links:
+    - app:tomcat
+  ports:
+     - 80:80
+  volumes:
+    - /home/canigo/Documents/workspace-sts-3.7.1.RELEASE/equipaments/client:/usr/local/apache2/htdocs/demo-equipaments

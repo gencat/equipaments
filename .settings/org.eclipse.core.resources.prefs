@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/config/persistence/persistence.xml=ISO-8859-1
+encoding//src/main/resources/config/props/application.properties=ISO-8859-1
+encoding//src/main/resources/config/props/jpa.properties=ISO-8859-1
+encoding//src/main/resources/log4j/log4j.int.xml=ISO-8859-1
+encoding//src/main/resources/log4j/log4j.pre.xml=ISO-8859-1
+encoding//src/main/resources/log4j/log4j.pro.xml=ISO-8859-1
+encoding//src/main/resources/log4j/log4j.xml=ISO-8859-1
+encoding//src/main/resources/spring/app-custom-persistence-jpa.xml=ISO-8859-1
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

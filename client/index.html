@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+        <!--script src="http://code.angularjs.org/1.1.0/angular.min.js"></script-->
+        <script type='text/javascript' src="lib/angular/angular.js"></script>
+        <script type='text/javascript' src="lib/angular/angular-resource.js"></script>
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+    </head>
+    <body id="ng-app" ng-app="equipaments">
+        <div ng-controller="modalCtrl">
+            <script type="text/ng-template" id="content.html">
+                <div class="modal-body" style="text-align:center; height:250px;">
+                    <img src="img/loading.gif" style="margin-top:100px" />
+                </div>
+            </script>        
+        </div>    
+        <div class="container">
+            <div class="navbar">
+               <div class="navbar-inner">
+                 <div class="container">
+                    <a class="brand" href="index2.html"> <img src="http://www.gencat.cat/img2/temp/escudo_tcm32-28377.gif"></a>
+                 </div>
+               </div>
+             </div>          
+            <script type="text/javascript">
+                var sortingOrder = 'id';
+            </script>
+
+            <div ng-controller="messageCtrl" ng-show="message.length>0">
+              <alert type="type" close="closeMessage()">{{message}}</alert>
+            </div>
+
+            <div ng-controller="ctrlRead">
+                <form class="form-search">
+                    <div class="row-fluid">
+                        <div class="input-append pull-left">
+                            <input type="search" ng-model="query" ng-enter="refreshData()" class="search-query" placeholder="Cerca" tabindex="1">
+                            <button type="submit" class="btn" style="height:30px"><i class="icon-search icon-large"></i></button>              
+                        </div>
+                        <div class="pull-right">
+                                <label for="pagines">Resultats per p&aacute;gina</label>
+                                <select ng-model="itemsPerPage" ng-change="refreshData()">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                </select>
+                        </div>
+                    </div>  
+                </form>  
+                <table class="table table-striped table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">
+                                <div class="btn-toolbar"><i class="btn icon-plus" ng-click="toogleAddMode()" tooltip-popup-delay='1000' tooltip='Afegeix un registre'></i></div>
+                            </th>
+                            <th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
+                            <th class="nom">Nom&nbsp;<a ng-click="sort_by('nom')"><i class="icon-sort"></i></a></th>
+                            <th class="municipi">Municipi&nbsp;<a ng-click="sort_by('municipi')"><i class="icon-sort"></i></a></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <td colspan="6">
+                            <pagination  on-select-page="setPage(page)" total-items="totalPages" num-pages="noOfPages" page="currentPage" max-size="maxSize" class="pagination-small" boundary-links="true" rotate="false" previous-text="Anterior" next-text="Seg&uuml;ent" first-text="Primer" last-text="&Uacute;ltim"></pagination>
+                        </td>
+                        <td>
+                            <input ng-model="currentPage" ng-enter="setPage2()" class="search-query span1"> / {{totalPages/10}}
+                        </td>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-show="addMode">
+                            <td>
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <i class="btn icon-save" ng-click="add(item)" tooltip-popup-delay='1000' tooltip='Desa el registre'></i>
+                                        <i class="btn icon-remove" ng-click="toogleAddMode()" tooltip-popup-delay='1000' tooltip='Cancel.la'></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input ng-model="item.id" /></td>
+                            <td><input ng-model="item.nom" /></td>
+                            <td><input ng-model="item.municipi"  /></td>
+
+                        </tr>                
+                        <tr ng-repeat="item in pagedItems | orderBy:sortingOrder:reverse">
+                            <td>
+                                <div class="btn-toolbar" ng-show="item.editMode == null || item.editMode == false">
+                                    <div class="btn-group">
+                                        <i class="btn icon-edit" ng-click="editMode(item)" tooltip-popup-delay='1000' tooltip='Edita el registre'></i>
+                                        <i class="btn icon-trash" ng-click="del(item, $index)" tooltip-popup-delay='1000' tooltip='Elimina el registre'></i>
+                                    </div>
+                                </div>
+                                <div class="btn-toolbar" ng-show="item.editMode == true">
+                                    <div class="btn-group">
+                                        <i class="btn icon-save" ng-click="update(item)" tooltip-popup-delay='1000' tooltip='Actualitza el registre'></i>
+                                        <i class="btn icon-remove" ng-click="editMode(item)" tooltip-popup-delay='1000' tooltip="Cancel.la l'edici&oacute;"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{item.id}}</td>
+                            <td>
+                                <span ng-show="item.editMode == null || item.editMode == false">{{item.nom}}</span>
+                                <input ng-model="item.nom" ng-show="item.editMode == true" />
+                            </td>
+                            <td>
+                                <span ng-show="item.editMode == null || item.editMode == false">{{item.municipi}}</span>
+                                <input ng-model="item.municipi" ng-show="item.editMode == true" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
