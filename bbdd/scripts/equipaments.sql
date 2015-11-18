@@ -24,6 +24,7 @@ ALTER TABLE equipaments ADD FULLTEXT(nom, adreca, municipi, cp, comarca, telefon
 
 LOAD DATA LOCAL INFILE '/tmp/data/Equipaments.csv'
 INTO TABLE equipaments
+CHARACTER SET UTF8
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
