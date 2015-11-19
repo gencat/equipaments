@@ -3,4 +3,6 @@
 # SSH:   docker exec -it cscanigo/httpd:2.4 bash
 
 FROM httpd:2.4
+MAINTAINER oficina-tecnica.canigo.ctti@gencat.cat
+
 COPY ./canigo-httpd.conf /usr/local/apache2/conf/httpd.conf

@@ -4,8 +4,8 @@
 
 FROM ubuntu:14.04
 MAINTAINER oficina-tecnica.canigo.ctti@gencat.cat
-RUN apt-get update && apt-get -y upgrade
 
+RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
